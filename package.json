@@ -1,0 +1,25 @@
+{
+  "name": "urlshortener-app",
+  "version": "1.0.0",
+  "description": "a website for dealing with links",
+  "keywords": [
+    "react",
+    "backend",
+    "postgresql"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "Shortly-app"
+  },
+  "license": "ISC",
+  "author": "Syed Abid Ahmed",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1"
+  }
+}
