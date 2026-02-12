@@ -1,7 +1,10 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { FaUser } from "react-icons/fa"
 import { Link, useNavigate } from "react-router-dom"
-import { register } from "../services/AuthService"
+// import { register } from "../services/AuthService"
+import { useDispatch, useSelector } from "react-redux"
+import { toast } from 'react-toastify'
+import { register, reset } from "../features/auth/authSlice"
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -10,12 +13,28 @@ function Register() {
     password: '',
     password2: '',
   })
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  // const [loading, setLoading] = useState(false)
+  // const [error, setError] = useState('')
   
   const { name, email, password, password2 } = formData
+  
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
+  const {user, isLoading, isError, isSuccess, message} = useSelector((state) =>  state.auth)
+
+  useEffect(() => {
+    if(isError) {
+      toast.error(message)
+    }
+
+    if(isSuccess || user) {
+      navigate('/dashboard')
+    }
+
+    dispatch(reset())
+  }, [user, isError, isSuccess, message, dispatch, navigate])
+  
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -25,29 +44,33 @@ function Register() {
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    setError('')
-    setLoading(true)
 
     if (password !== password2) {
-      setError("Passwords don't match!")
-      setLoading(false)
-      return
+      toast.error("Passwords do not match!")
     }
-
-    try {
-      await register({
+    else {
+      const userData = {
         name,
         email,
         password
-      })
-      navigate('/dashboard')
-    } catch (err) {
-      setError(err.message || "Registration failed. Please try again.")
-    } finally {
-      setLoading(false)
-    }
-  }
+      }
 
+      dispatch(register(userData))
+    }
+    // try {
+    //   await register({
+    //     name,
+    //     email,
+    //     password
+    //   })
+    //   navigate('/dashboard')
+    // } catch (err) {
+    //   setError(err.message || "Registration failed. Please try again.")
+    // } finally {
+    //   setLoading(false)
+    // }
+  }
+    
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -62,9 +85,9 @@ function Register() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          {error && (
+          {isError && (
             <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-6">
-              {error}
+              {message}
             </div>
           )}
 
@@ -140,10 +163,10 @@ function Register() {
             <div>
               <button
                 type="submit"
-                disabled={loading}
+                disabled={isLoading}
                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
               >
-                {loading ? 'Creating account...' : 'Create account'}
+                {isLoading ? 'Creating account...' : 'Create account'}
               </button>
             </div>
           </form>

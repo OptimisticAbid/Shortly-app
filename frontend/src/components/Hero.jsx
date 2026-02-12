@@ -12,7 +12,7 @@ const Hero = () => {
 
           {/* Text Content */}
           <div className="flex-1">
-            <h1 className="font-display text-3xl md:text-5xl font-semibold mb-6">
+            <h1 className="text-3xl md:text-6xl! font-semibold mb-6">
               Short links. Deep insights.
             </h1>
 
@@ -22,11 +22,11 @@ const Hero = () => {
             </p>
 
             <div className="flex gap-4">
-              <button className="bg-primary  px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition">
+              <button className="bg-primary  px-6 py-3 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition">
                 Get started →
               </button>
 
-              <button className="bg-brand-gray-100 px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition">
+              <button className="bg-brand-gray-100 px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition cursor-pointer">
                 Try without an account
               </button>
             </div>
@@ -62,7 +62,7 @@ const Hero = () => {
 
 
         {/* Feature Cards */}
-        <div className="flex flex-col md:flex-row justify-center gap-6 text-card " >
+        <div id="features" className="flex flex-col md:flex-row justify-center gap-6 text-card " >
           <HeroCard
             title="Analytics that matters"
             description="Track clicks, views, and conversions with real-time data."

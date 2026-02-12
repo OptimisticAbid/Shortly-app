@@ -35,7 +35,8 @@ export const fetchUrls = async () => {
       credentials: 'include'
     })
     return handleResponse(response)
-  } catch (error) {
+  } 
+  catch (error) {
     console.error('Error fetching URLs:', error)
     throw error
   }

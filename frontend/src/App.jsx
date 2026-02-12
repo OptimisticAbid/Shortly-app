@@ -1,13 +1,16 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate, BrowserRouter } from 'react-router-dom'
 import Header from './components/Header'
 import Dashboard from './pages/Dashboard'
 import Login from './pages/login'
-import Register from './pages/register'
+import Register from './pages/Register'
 import { isAuthenticated } from './services/AuthService'
 import LandingPage from './pages/LandingPage'
 import Navbar from './components/Navbar'
 import Pricing from './pages/Pricing'
+import {ToastContainer} from 'react-toastify'
+import 'react-toastify/ReactToastify.css'
+
 
 const PrivateRoute = ({ children }) => {
   const authenticated = isAuthenticated()
@@ -16,6 +19,24 @@ const PrivateRoute = ({ children }) => {
 
 const App = () => {
   return (
+    <>
+
+      <Router>
+        
+        <Routes>
+          <Route path='/' element= { <LandingPage />   } />
+          <Route path='/dashboard' element= { <Dashboard />   } />
+          <Route path='/register' element= { <Register />   } />
+          <Route path='/login' element= { <Login />   } />
+      </Routes>
+
+      </Router>
+      <ToastContainer/>
+
+    </>
+    
+     
+
     // <Router>
     //   <div className="min-h-screen bg-gray-50">~
     //     <Header />
@@ -38,8 +59,7 @@ const App = () => {
     //     </main>
     //   </div>
     // </Router>
-    <LandingPage /> 
-    // <Pricing/>
+    
   )
 }
 export default App

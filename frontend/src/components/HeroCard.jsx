@@ -2,7 +2,7 @@ import React from 'react'
 
 const HeroCard = (props) => {
   return (
-        <div className='flex-1 bg-card px-4 py-10 mx-2 my-6 border border-solid border-border relative rounded-xl text-center shadow-lg'>
+        <div  className='flex-1 bg-card px-4 py-10 mx-2 my-6 border border-solid border-border relative rounded-xl text-center shadow-lg'>
             <h2 className='text-card-foreground font-semibold'>{props.title}</h2>
             <p className='text-card-foreground mt-2 inline-block'>{props.description}</p>
         </div>
