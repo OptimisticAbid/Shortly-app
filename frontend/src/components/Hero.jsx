@@ -22,7 +22,7 @@ const Hero = () => {
             </p>
 
             <div className="flex gap-4">
-              <button className="bg-primary  px-6 py-3 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition">
+              <button className="btn-primary  px-6 py-3 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition">
                 Get started →
               </button>
 

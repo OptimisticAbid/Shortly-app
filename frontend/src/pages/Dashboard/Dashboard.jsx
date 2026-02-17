@@ -1,51 +1,77 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import Navbar from '../components/Navbar'
+import Navbar from '../../components/Navbar'
+import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import Header from '../../components/Header'
+import Input from '../../components/Input.jsx'
+import Table from '../../components/Table.jsx'
 
 const Dashboard = () => {
 
-  const [userData, setUserData] = useState('')
-  const [urls, seturls] = useState('')
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const {user} = useSelector((state) => state.auth )
 
 
-const fetchUser = () => {
-   axios.get("api/v1/users/me")
-    .then(data => {
-      setUserData(data)
-    })
-}
-
-const fetchUrls = () => {
-  axios.get("api/v1/urls/")
-    .then((urls => {
-      seturls(urls)
-    }))
-}
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
-
-    if(!token) {
-      setError("User not Authenticated")
-      setLoading(false)
-      return
+    if(!user) {
+      navigate('/login')
     }
+  }, [user,navigate])
+//   const [userData, setUserData] = useState('')
+//   const [urls, seturls] = useState('')
+//   const [loading, setLoading] = useState(true)
+//   const [error, setError] = useState('')
 
-    fetchUser()
 
-    fetchUrls()
+// const fetchUser = () => {
+//    axios.get("api/v1/users/me")
+//     .then(data => {
+//       setUserData(data)
+//     })
+// }
+
+// const fetchUrls = () => {
+//   axios.get("api/v1/urls/")
+//     .then((urls => {
+//       seturls(urls)
+//     }))
+// }
+
+//   useEffect(() => {
+//     const token = localStorage.getItem('token')
+
+//     if(!token) {
+//       setError("User not Authenticated")
+//       setLoading(false)
+//       return
+//     }
+
+//     fetchUser()
+
+//     fetchUrls()
     
 
-  }, [])
+//   }, [])
   return (
     
     <div>
 
-      <Navbar/>
+      <Header/>
 
-      <h1 className='m-26 text-center text-4xl'>Dashboard</h1>
+      <h1 className='m-26 text-center text-4xl'>Welcome <span className='font-bold '>{user && user.name}</span></h1>
+      <p>Urls Dashboard</p>
+
+      <div className='m-4'><Input/></div>
+
+      
+      {/* <Table/> */}
+
+
+      
     </div>
 
 

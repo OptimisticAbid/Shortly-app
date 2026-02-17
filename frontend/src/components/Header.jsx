@@ -1,6 +1,7 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { FaBars, FaTimes, FaLink } from 'react-icons/fa'
+import logo from '../assets/logo.svg'
 
 function Header({ user, onLogout }) {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -31,10 +32,12 @@ function Header({ user, onLogout }) {
           to="/"
           className="text-2xl font-extrabold tracking-tight text-gray-900 flex items-center gap-2"
         >
-          <FaLink className="text-blue-600" />
-          <span>
-            <span className="text-blue-600">Short</span>ly
-          </span>
+          <div className="nav-logo-container ">
+                    <span className="nav-logo text-primary-dark font-semibold text-3xl">
+                      <img src={logo} alt="#"
+                      className="w-full h-full scale-250" />
+                    </span>
+                  </div>
         </Link>
 
         {/* Desktop Nav */}

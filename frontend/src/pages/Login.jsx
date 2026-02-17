@@ -1,18 +1,37 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { FaSignInAlt } from "react-icons/fa"
 import { Link, useNavigate } from "react-router-dom"
-import { login } from "../services/AuthService"
+import { toast } from 'react-toastify'
+import { useDispatch, useSelector } from "react-redux"
+import { login,reset } from "../features/auth/authSlice"
+
 
 function Login() {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   })
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  // const [loading, setLoading] = useState(false)
+  // const [error, setError] = useState('')
   
   const { email, password } = formData
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const {user, isError, isLoading, isSuccess, message} = useSelector((state) => state.auth)
+
+  useEffect(() => {
+
+    if(isError) {
+      toast.error(message)
+    }
+
+    if(isSuccess || user) {
+      navigate('/dashboard')
+    }
+
+    dispatch(reset())
+  }, [user,isError, isLoading, isSuccess,message])
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -26,26 +45,31 @@ function Login() {
     
     // Validate inputs
     if (!email || !password) {
-      setError('Please fill in all fields')
-      return
+     toast.error("Enter all fields")
     }
 
-    setLoading(true)
-    setError('')
-
-    try {
-      const response = await login({ email, password })
-      if (response.token) {
-        // navigate("/dashboard")
-      } else {
-        setError('Login failed - no token received')
+    else {
+      const userData = {
+        email,
+        password
       }
-    } catch (err) {
-      console.error('Login error:', err)
-      setError(err.message || "Failed to login. Please check your credentials and try again.")
-    } finally {
-      setLoading(false)
+
+      dispatch(login(userData))
     }
+
+    // try {
+    //   const response = await login({ email, password })
+    //   if (response.token) {
+    //     navigate("/dashboard")
+    //   } else {
+    //     setError('Login failed - no token received')
+    //   }
+    // } catch (err) {
+    //   console.error('Login error:', err)
+    //   setError(err.message || "Failed to login. Please check your credentials and try again.")
+    // } finally {
+    //   setLoading(false)
+    // }
   }
 
   return (
@@ -62,9 +86,9 @@ function Login() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          {error && (
+          {isError && (
             <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-6">
-              {error}
+              {message}
             </div>
           )}
 
@@ -106,7 +130,7 @@ function Login() {
             <div>
               <button
                 type="submit"
-                disabled={loading}
+                disabled={isLoading}
                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
               >Sign in
                 {/* {loading ? 'Signing in...' : 'Sign in'} */}

@@ -11,7 +11,7 @@ const createShortUrl = asyncHandler(async(req,res) => {
         res.status(400)
         throw new Error('Please add a new URL')
     }
-    const [existing] = await db.select().from(urls).where(eq(urls.longUrl,longUrl)).returning()
+    const [existing] = await db.select().from(urls).where(eq(urls.longUrl,longUrl))
 
     if(existing){
         res.status(200).json({
@@ -22,11 +22,14 @@ const createShortUrl = asyncHandler(async(req,res) => {
         })
     }
     const shortUrl = nanoid(7) ;
-    const newUrl = await db.insert(urls).values({
-        userId:req.user.id,
-        longUrl,
-        shortUrl,
-    }).returning()
+  
+    const [newUrl] = await db.insert(urls)
+        .values({
+            userId: req.user.id,
+            longUrl,
+            shortUrl,
+        })
+        .returning();
 
     res.status(201).json({
         message: "URL Shortened Sucessfully",

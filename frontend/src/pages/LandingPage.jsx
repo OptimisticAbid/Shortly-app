@@ -4,6 +4,7 @@ import Hero from '../components/Hero'
 import HeroCard from '../components/HeroCard'
 import Pricing from '../components/Pricing'
 import Footer from '../components/Footer'
+import Header from '../components/Header'
 // import FeatureFloating from '../components/FeatureFloating'
 
 
