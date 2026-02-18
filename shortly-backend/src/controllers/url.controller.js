@@ -33,8 +33,8 @@ const createShortUrl = asyncHandler(async(req,res) => {
 
     res.status(201).json({
         message: "URL Shortened Sucessfully",
-        userId: newUrl[0].userId,
-        longUrl: newUrl[0].longUrl,
+        userId: newUrl.userId,
+        longUrl: newUrl.longUrl,
         shortUrl: shortUrl
     })    
 
