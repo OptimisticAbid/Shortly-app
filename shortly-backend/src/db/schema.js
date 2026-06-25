@@ -2,7 +2,7 @@ import { pgTable, uuid, varchar, timestamp, integer ,text } from "drizzle-orm/pg
 
 
 export const users = pgTable("users", {
-    id: uuid("id").primaryKey().defaultRandom().unique(),
+    id: uuid("id").primaryKey().defaultRandom(),
     name: varchar("name").notNull(),
     email: varchar("email",{ length: 255 }).notNull().unique(),
     password: text("password").notNull(),
@@ -11,13 +11,14 @@ export const users = pgTable("users", {
 })
 
 export const urls = pgTable("urls", {
-    id: uuid("id").primaryKey().unique().defaultRandom(),
+    id: uuid("id").primaryKey().defaultRandom(),
     userId: uuid("user_id").notNull().references(() => users.id, {onDelete: "cascade"}),
     longUrl: varchar("long_url",{ length: 255 }).notNull(),
     shortUrl: varchar("short_url").notNull().unique(),
     clickCount: integer("click_count").default(0).notNull(),
     expiresAt: timestamp("expires_at"),
     createdAt : timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("upated_at").defaultNow().notNull()
 })
 
 export const clicks = pgTable("clicks", {

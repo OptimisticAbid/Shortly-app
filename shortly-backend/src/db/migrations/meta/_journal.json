@@ -15,6 +15,20 @@
       "when": 1768721008826,
       "tag": "0001_striped_korg",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1782313740016,
+      "tag": "0002_giant_leopardon",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1782313927451,
+      "tag": "0003_cloudy_hellcat",
+      "breakpoints": true
     }
   ]
 }

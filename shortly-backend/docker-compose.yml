@@ -1,11 +1,8 @@
 services:
   db:
-    image: postgres:alpine
+    image: postgres:18-alpine
     container_name: postgres
     restart: always
-    # env_file:
-    #   - ../.env
-
     environment:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
@@ -18,12 +15,19 @@ services:
       timeout: 30s
       retries: 5
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-    
-
+      - postgres_data:/var/lib/postgresql
     attach: false
 
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    ports:
+      - 6379:6379
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    
   adminer:
     image: adminer
     restart: always
@@ -32,3 +36,4 @@ services:
 
 volumes:
   postgres_data:
+  redis_data:

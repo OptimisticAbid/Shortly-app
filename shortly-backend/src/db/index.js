@@ -7,8 +7,8 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: false,
   max: 10
-  
 });
+
 export const db = drizzle({ client: pool });
 
 export const connectDb = async() => {
