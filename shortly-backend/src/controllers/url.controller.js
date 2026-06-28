@@ -5,25 +5,38 @@ import { nanoid } from "nanoid";
 import { db } from "../db/index.js";
 import redis from "../db/redis.js"
 
+
 const createShortUrl = asyncHandler(async(req,res) => {
-    const { longUrl } = req.body; 
+    const { longUrl, customAlias } = req.body; 
+    
 
-    if(!longUrl) {
-        res.status(400)
-        throw new Error('Please add a new URL')
-    }
     const [existing] = await db.select().from(urls).where(eq(urls.longUrl,longUrl))
-
+    
     if(existing){
-        res.status(200).json({
+        return res.status(200).json({
             message:"URL already shortened",
             longUrl: longUrl,
             shortUrl: existing.shortUrl,
             created_at: existing.createdAt
         })
     }
-    const shortUrl = nanoid(7) ;
-  
+    let shortUrl;
+    if(customAlias) {
+        const [existingAlias] = await db.select().from(urls).where(eq(urls.shortUrl, customAlias))
+
+        if(existingAlias) {
+            return res.status(409).json({
+                success: false,
+                message: "Alias already taken"
+            })
+        }
+        shortUrl = customAlias
+    }
+    else {
+        shortUrl = nanoid(7)
+    }
+    
+
     const [newUrl] = await db.insert(urls)
         .values({
             userId: req.user.id,
@@ -32,11 +45,11 @@ const createShortUrl = asyncHandler(async(req,res) => {
         })
         .returning();
 
-    res.status(201).json({
+    return res.status(201).json({
         message: "URL Shortened Sucessfully",
         userId: newUrl.userId,
         longUrl: newUrl.longUrl,
-        shortUrl: shortUrl
+        shortUrl: newUrl.shortUrl
     })    
 
 })

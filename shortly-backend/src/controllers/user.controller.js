@@ -8,11 +8,6 @@ import jwt from 'jsonwebtoken'
 const registerUser = asyncHandler(async(req,res) => {
     const {name , email , password} = req.body ;
 
-    if(!name || !email || !password) {
-        res.status(400)
-        throw new Error("Enter all Fields! ")
-    }
-
     const userExists = await db.select().from(users).where(eq(users.email,email))
 
     if(userExists.length > 0) {
@@ -44,11 +39,6 @@ const registerUser = asyncHandler(async(req,res) => {
 
 const loginUser = asyncHandler(async(req,res) => {
     const {email,password} = req.body
-
-    if(!email) {
-        res.status(401)
-        throw new Error("Email not provided")
-    }
 
     const [user] = await db.select().from(users).where(eq(users.email,email))
 
@@ -84,10 +74,6 @@ const getMe = asyncHandler(async (req,res) => {
 const updateUser = asyncHandler(async (req,res) => {
     const userId = req.user.id
 
-    if(!userId) {
-        res.status(404)
-        throw new Error("User id not given")
-    }
     const {name, email} = req.body
 
     const [updatedUser] = await db.update(users).set({name, email}).where(eq(users.id,req.user.id)).returning({
@@ -111,11 +97,6 @@ const updateUser = asyncHandler(async (req,res) => {
 
 const deleteUser = asyncHandler(async (req,res) => {
     const userId = req.user.id
-
-    if(!userId) {
-        res.status(400)
-        throw new Error("User not found!")
-    }
 
     const user = await db.delete(users).where(eq(users.id,userId))
 

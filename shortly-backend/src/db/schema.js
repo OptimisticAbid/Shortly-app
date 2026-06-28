@@ -1,13 +1,11 @@
-import { pgTable, uuid, varchar, timestamp, integer ,text } from "drizzle-orm/pg-core";
-
+import { pgTable, uuid, varchar, timestamp, integer ,text, index } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
     id: uuid("id").primaryKey().defaultRandom(),
     name: varchar("name").notNull(),
-    email: varchar("email",{ length: 255 }).notNull().unique(),
+    email: varchar("email", {length: 255}).notNull().unique(),
     password: text("password").notNull(),
-    createdAt: timestamp("created_at").defaultNow().notNull()
-    
+    createdAt: timestamp("created_at").defaultNow().notNull()  
 })
 
 export const urls = pgTable("urls", {
@@ -19,7 +17,10 @@ export const urls = pgTable("urls", {
     expiresAt: timestamp("expires_at"),
     createdAt : timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("upated_at").defaultNow().notNull()
-})
+}, (table) => ({
+        userIdx: index("user_idx").on(table.userId)
+    })
+)
 
 export const clicks = pgTable("clicks", {
     id: uuid("id").defaultRandom().primaryKey(),
@@ -27,4 +28,8 @@ export const clicks = pgTable("clicks", {
         references( () => urls.id, {onDelete: "cascade"}),
     clickedAt: timestamp("clicked_at").defaultNow().notNull(),
     
-})
+}, (table) => ({
+        urlIdIdx: index("url_id_idx").on(table.urlId),
+        urlAnalyticsIdx: index("url_analytics_idx").on(table.urlId, table.clickedAt)
+    })
+)

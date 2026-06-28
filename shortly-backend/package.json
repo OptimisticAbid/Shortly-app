@@ -32,7 +32,8 @@
     "jsonwebtoken": "^9.0.3",
     "nanoid": "^5.1.6",
     "pg": "^8.16.3",
-    "socket.io": "^4.8.3"
+    "socket.io": "^4.8.3",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/pg": "^8.16.0",
