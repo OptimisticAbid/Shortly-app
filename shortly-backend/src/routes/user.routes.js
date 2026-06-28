@@ -3,13 +3,13 @@ import {registerUser , loginUser, getMe, updateUser, deleteUser} from '../contro
 import authMiddleware from '../middlewares/auth.middleware.js';
 import { loginSchema, registerSchema, updateUserSchema}  from '../validators/user.validator.js'
 import { validate } from '../middlewares/validation.middleware.js';
-
+import { loginLimiter, registerLimiter } from '../middlewares/rateLimit.middleware.js';
 const router = express.Router()
 
 
-router.post('/register', validate(registerSchema), registerUser)
+router.post('/register', registerLimiter, validate(registerSchema), registerUser)
 
-router.post('/login', validate(loginSchema) ,loginUser)
+router.post('/login', loginLimiter, validate(loginSchema) ,loginUser)
 
 router.get("/me", authMiddleware, getMe) ;
 
