@@ -13,8 +13,9 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
 
         const decoded = jwt.verify(token,process.env.JWT_SECRET)
 
+        
         const [user] = await db.select().from(users).where(eq(users.id,decoded.id))
-
+        
         if(!user) {
             res.status(400)
             throw new Error("User not found!")

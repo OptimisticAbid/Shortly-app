@@ -4,11 +4,11 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { nanoid } from "nanoid";
 import { db } from "../db/index.js";
 import redis from "../db/redis.js"
-
+import { broadcastWebSocketMessage } from "../socket/websocket.js";
 
 const createShortUrl = asyncHandler(async(req,res) => {
     const { longUrl, customAlias } = req.body; 
-    
+
 
     const [existing] = await db.select().from(urls).where(eq(urls.longUrl,longUrl))
     
@@ -44,6 +44,13 @@ const createShortUrl = asyncHandler(async(req,res) => {
             shortUrl,
         })
         .returning();
+
+    broadcastWebSocketMessage({
+        type: "urlCreated",
+        userId: newUrl.userId,
+        longUrl: newUrl.longUrl,
+        shortUrl: newUrl.shortUrl,
+    });
 
     return res.status(201).json({
         message: "URL Shortened Sucessfully",
@@ -121,11 +128,21 @@ const redirectUrl = async (req, res) => {
 
         const url = JSON.parse(cachedUrl);
 
-        await db.update(urls).set({clickCount : sql`${urls.clickCount} + 1`}).where(eq(urls.id, url.id))
-        
+        const [updatedUrl] = await db.update(urls)
+            .set({ clickCount: sql`${urls.clickCount} + 1` })
+            .where(eq(urls.id, url.id))
+            .returning({ clickCount: urls.clickCount });
+
         await db.insert(clicks).values({
             urlId: url.id
-        })
+        });
+
+        broadcastWebSocketMessage({
+            type: "clickUpdated",
+            shortUrl,
+            clickCount: updatedUrl?.clickCount ?? null,
+        });
+
         return res.redirect(url.longUrl);
     }
 
@@ -145,14 +162,23 @@ const redirectUrl = async (req, res) => {
     3600
     );
 
-    await db
-    .update(urls)
-    .set({ clickCount: sql`${urls.clickCount} + 1` })
-    .where(eq(urls.id, url.id));
+    const [updatedUrl] = await db
+        .update(urls)
+        .set({ clickCount: sql`${urls.clickCount} + 1` })
+        .where(eq(urls.id, url.id))
+        .returning({
+            clickCount: urls.clickCount,
+        });
 
     await db.insert(clicks).values({
-        urlId: url.id
-    })
+        urlId: url.id,
+    });
+
+    broadcastWebSocketMessage({
+        type: "clickUpdated",
+        shortUrl,
+        clickCount: updatedUrl?.clickCount ?? null,
+    });
 
     res.redirect(url.longUrl);
 };

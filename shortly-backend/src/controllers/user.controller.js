@@ -11,7 +11,11 @@ const registerUser = asyncHandler(async(req,res) => {
     const userExists = await db.select().from(users).where(eq(users.email,email))
 
     if(userExists.length > 0) {
-        res.status(400)
+        res.status(400).json({
+            success: false,
+            message: "User already exists" ,
+            userExists: userExists
+        })
         throw new Error("User already exists")
     }
 
@@ -19,12 +23,14 @@ const registerUser = asyncHandler(async(req,res) => {
 
     const hashedPassword = await bcrypt.hash(password,salt); 
 
-    const user = await db.insert(users).values({
+    const [user] = await db.insert(users).values({
         
         name: name ,
         email: email,
         password: hashedPassword
     }).returning()
+
+
 
     if(user) {
         res.status(201).json({
