@@ -66,7 +66,7 @@ const loginUser = asyncHandler(async(req,res) => {
     }
     else {
         res.status(400)
-        throw new Error("Inavlid Credentials")
+        throw new Error("Invalid Credentials")
     }
 })
 
