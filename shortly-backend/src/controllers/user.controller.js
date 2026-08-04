@@ -34,13 +34,16 @@ const registerUser = asyncHandler(async(req,res) => {
 
     if(user) {
         res.status(201).json({
-            id : user.id,
-            success : true,
-            message:"Registered successfully", 
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email
+            },
+            success: true,
+            message: "Registered Successful",
             token: generateToken(user.id)
         })
     }
-
 })
 
 const loginUser = asyncHandler(async(req,res) => {
@@ -50,9 +53,13 @@ const loginUser = asyncHandler(async(req,res) => {
 
     if(user && (await bcrypt.compare(password,user.password))) {
        res.json({
-            id: user.id,
-            name: user.name,
-            email: user.email,
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email
+            },
+            success: true,
+            message: "Login Successful",
             token: generateToken(user.id)
         })
 
@@ -71,9 +78,13 @@ const getMe = asyncHandler(async (req,res) => {
     }).from(users).where(eq(users.email,req.user.email))
 
     res.status(200).json({
-        id:user.id,
-        name: user.name,
-        email: user.email
+        user: {
+                id: user.id,
+                name: user.name,
+                email: user.email
+            },
+            success: true,
+            message: "User Fetched Successfully",
     })
 })
 
@@ -94,9 +105,13 @@ const updateUser = asyncHandler(async (req,res) => {
     }
 
     return res.status(200).json({
-        message: "Update Sucessfull",
-        name: updatedUser.name,
-        email: updatedUser.email
+        user: {
+            id: updatedUser.id,
+            name: updatedUser.name,
+            email: updatedUser.email
+        },
+        success: true,
+        message: "Update Successful"
     })
 
 })
