@@ -13,10 +13,11 @@
   "license": "ISC",
   "author": "Syed Abid Ahmed",
   "type": "module",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon src/server.js",
+    "start": "node src/server.js",
     "db:generate": "npx drizzle-kit generate --config src/db/drizzle.config.js",
     "db:migrate": "npx drizzle-kit migrate --config src/db/drizzle.config.js",
     "db:push": "npx drizzle-kit push --config src/db/drizzle.config.js",
