@@ -11,7 +11,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 // app.use(cors, (req, res) => res.send("cors error"))
 app.get("/", (req, res) =>{
-    res.redirect("/healthy");
+    res.redirect("/health");
 })
 
 app.get("/health", (req, res) => {
