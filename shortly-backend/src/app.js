@@ -10,6 +10,10 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 // app.use(cors, (req, res) => res.send("cors error"))
+app.get("/", (req, res) =>{
+    res.redirect("/healthy");
+})
+
 app.get("/health", (req, res) => {
     res.status(200).json({
         status: "healthy",
