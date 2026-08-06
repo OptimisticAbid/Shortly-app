@@ -62,7 +62,7 @@ const Table = () => {
             <tr key={link.id} className="bg-white text-slate-700">
               <td className="px-4 py-3">
                 <div className="flex flex-col gap-1">
-                  <a href={`${API_URL}/${link.shortUrl}`} target="_blank" rel="noreferrer" className="font-semibold text-emerald-700 hover:underline">
+                  <a href={`${APP_URL}/${link.shortUrl}`} target="_blank" rel="noreferrer" className="font-semibold text-emerald-700 hover:underline">
                     {link.shortUrl}
                   </a>
                   <button onClick={() => handleCopy(link.shortUrl)} className="inline-flex w-fit items-center gap-2 text-xs text-slate-500 transition hover:text-slate-900">
