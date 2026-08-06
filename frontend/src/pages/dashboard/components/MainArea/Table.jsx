@@ -5,7 +5,8 @@ import { toast } from 'react-toastify'
 import { deleteUrl, fetchUrls } from '../../../../features/urls/urlSlice'
 
 const Table = () => {
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+  const API_URL = import.meta.env.VITE_API_URL 
+  const APP_URL = import.meta.env.VITE_APP_URL 
   const { urls } = useSelector((state) => state.urls)
   const dispatch = useDispatch()
   const [expandedRow, setExpandedRow] = useState(null)
@@ -36,7 +37,7 @@ const Table = () => {
 
   const handleCopy = async (shortUrl) => {
     try {
-      const fullUrl = `${API_URL}/${shortUrl}`
+      const fullUrl = `${APP_URL}/${shortUrl}`
       await navigator.clipboard.writeText(fullUrl)
       toast.success('Short link copied')
     } catch {
