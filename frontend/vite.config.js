@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [react(),tailwindcss()],
   server: {
     proxy: {
-      '/api': 'https://shortly-app-production.up.railway.app/'
+      '/api': 'http://localhost:5000'
     }
   }
 })

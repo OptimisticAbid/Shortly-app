@@ -5,12 +5,13 @@ import { toast } from 'react-toastify'
 import { deleteUrl, fetchUrls } from '../../../../features/urls/urlSlice'
 
 const Table = () => {
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
   const { urls } = useSelector((state) => state.urls)
   const dispatch = useDispatch()
   const [expandedRow, setExpandedRow] = useState(null)
 
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:5000')
+    const ws = new WebSocket(`${API_URL.replace('http', 'ws')}/ws`)
 
     ws.onmessage = (event) => {
       const data = JSON.parse(event?.data)
@@ -35,7 +36,7 @@ const Table = () => {
 
   const handleCopy = async (shortUrl) => {
     try {
-      const fullUrl = `http://localhost:5000/${shortUrl}`
+      const fullUrl = `${API_URL}/${shortUrl}`
       await navigator.clipboard.writeText(fullUrl)
       toast.success('Short link copied')
     } catch {
@@ -60,7 +61,7 @@ const Table = () => {
             <tr key={link.id} className="bg-white text-slate-700">
               <td className="px-4 py-3">
                 <div className="flex flex-col gap-1">
-                  <a href={`http://localhost:5000/${link.shortUrl}`} target="_blank" rel="noreferrer" className="font-semibold text-emerald-700 hover:underline">
+                  <a href={`${API_URL}/${link.shortUrl}`} target="_blank" rel="noreferrer" className="font-semibold text-emerald-700 hover:underline">
                     {link.shortUrl}
                   </a>
                   <button onClick={() => handleCopy(link.shortUrl)} className="inline-flex w-fit items-center gap-2 text-xs text-slate-500 transition hover:text-slate-900">
@@ -80,7 +81,7 @@ const Table = () => {
               <td className="px-4 py-3 text-slate-500">{link.createdAt ? link.createdAt.slice(0, 10) : '—'}</td>
               <td className="px-4 py-3">
                 <div className="flex items-center gap-3">
-                  <a href={`http://localhost:5000/${link.shortUrl}`} target="_blank" rel="noreferrer" className="rounded-full p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900">
+                  <a href={`${API_URL}/${link.shortUrl}`} target="_blank" rel="noreferrer" className="rounded-full p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900">
                     <FiExternalLink className="h-4 w-4" />
                   </a>
                   <button onClick={() => handleDelete(link.id)} className="rounded-full p-2 text-slate-500 transition hover:bg-rose-50 hover:text-rose-600">

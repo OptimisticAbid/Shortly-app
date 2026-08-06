@@ -1,13 +1,11 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate, BrowserRouter } from 'react-router-dom'
-import Header from './components/Header'
 import Dashboard from './pages/dashboard/Dashboard.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register'
 
-import LandingPage from './pages/LandingPage'
-import Navbar from './components/Navbar'
-import Pricing from './pages/Pricing'
+import LandingPage from './pages/landingPage/LandingPage.jsx'
+
 import {ToastContainer} from 'react-toastify'
 import 'react-toastify/ReactToastify.css'
 import ProtectedRoutes from './components/ProtectedRoutes.jsx'

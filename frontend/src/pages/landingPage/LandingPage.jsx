@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import Navbar from '../components/Navbar'
-import Hero from '../components/Hero'
-import FeatureShowcase from '../components/FeatureShowcase'
-import Pricing from '../components/Pricing'
-import Footer from '../components/Footer'
+import Navbar from '../../components/Navbar.jsx'
+import Hero from './components/Hero.jsx'
+import FeatureShowcase from './components/FeatureShowcase'
+import Pricing from './components/Pricing'
+import Footer from '../../components/Footer'
 
 const LandingPage = () => {
   const { user, success } = useSelector((state) => state.auth)

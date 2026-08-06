@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = '/api/v1/urls/'
+const API_URL = `${import.meta.env.VITE_API_URL}/urls` 
 
 export const createShortUrl = async(longUrl, token, customAlias = '') => {
     try{
@@ -46,7 +46,7 @@ export const deleteUrl = async (id,token) => {
       }
     }
 
-    const response = await axios.delete(API_URL + id, config)
+    const response = await axios.delete(API_URL + `/${id}`, config)
     
     return response.data
   }
@@ -56,7 +56,7 @@ export const deleteUrl = async (id,token) => {
 }
 
 export const updateClicks = async (id) => {
-  const response = await axios.put(`/api/url/${id}/click`)
+  const response = await axios.put(`${API_URL}/click`)
   return response.data
 }
 

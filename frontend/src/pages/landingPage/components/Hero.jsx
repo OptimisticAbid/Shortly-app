@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { HashLink } from 'react-router-hash-link'
 import { FiArrowRight, FiCheckCircle, FiPlayCircle } from 'react-icons/fi'
-import Image from '../assets/hero-image.jpeg'
+import Image from '../../../assets/hero-image.jpeg'
 
 const Hero = () => {
   return (

@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const API_URL = '/api/v1/users/'
+const API_URL = `${import.meta.env.VITE_API_URL}/users`
 
 const decodeTokenPayload = (token) => {
   if (!token) return null
@@ -88,7 +88,7 @@ const clearAuth = () => {
 }
 
 const register = async (userData) => {
-  const response = await axios.post(`${API_URL}register`, userData)
+  const response = await axios.post(`${API_URL}/register`, userData)
   return saveAuth(response.data)
 }
 
@@ -97,7 +97,7 @@ const logout = () => {
 }
 
 const login = async (userData) => {
-  const response = await axios.post(`${API_URL}login`, userData)
+  const response = await axios.post(`${API_URL}/login`, userData)
   return saveAuth(response.data)
 }
 
