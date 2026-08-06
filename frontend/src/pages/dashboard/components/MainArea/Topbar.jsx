@@ -23,7 +23,7 @@ const TopBar = () => {
     <div className="border-b mb-4 border-slate-200 bg-white/70 px-4 py-4 backdrop-blur sm:px-6 lg:px-8">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <p className="text-sm font-medium text-emerald-600">Dashboard overview</p>
+          <p className="text-sm font-medium text-emerald-600">Dashboard </p>
           <h1 className="text-2xl font-semibold text-slate-900">Welcome back, {user?.name? user.name.charAt(0).toUpperCase() + user.name.slice(1)
           : 'there'} 👋</h1>
           <p className="mt-1 text-sm text-slate-500">Keep your link campaigns organized and your click data visible.</p>
