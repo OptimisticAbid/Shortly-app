@@ -82,7 +82,7 @@ const Table = () => {
               <td className="px-4 py-3 text-slate-500">{link.createdAt ? link.createdAt.slice(0, 10) : '—'}</td>
               <td className="px-4 py-3">
                 <div className="flex items-center gap-3">
-                  <a href={`${API_URL}/${link.shortUrl}`} target="_blank" rel="noreferrer" className="rounded-full p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900">
+                  <a href={`${APP_URL}/${link.shortUrl}`} target="_blank" rel="noreferrer" className="rounded-full p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900">
                     <FiExternalLink className="h-4 w-4" />
                   </a>
                   <button onClick={() => handleDelete(link.id)} className="rounded-full p-2 text-slate-500 transition hover:bg-rose-50 hover:text-rose-600">
