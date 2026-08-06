@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react"
-import { FaSignInAlt } from "react-icons/fa"
-import { Link, useNavigate } from "react-router-dom"
+import { useEffect, useState } from 'react'
+import { FiArrowRight, FiLock, FiMail } from 'react-icons/fi'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { useDispatch, useSelector } from "react-redux"
-import { login,reset } from "../features/auth/authSlice"
-
+import { useDispatch, useSelector } from 'react-redux'
+import { login, reset } from '../features/auth/authSlice'
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -24,13 +23,14 @@ function Login() {
 
     if(isError) {
       toast.error(message)
+        dispatch(reset())
     }
 
     if(isSuccess || user) {
       navigate('/dashboard')
+      dispatch(reset())
     }
 
-    dispatch(reset())
   }, [user,isError, isLoading, isSuccess,message])
 
   const onChange = (e) => {
@@ -73,31 +73,28 @@ function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-bold text-gray-900 flex items-center justify-center gap-2">
-          <FaSignInAlt className="text-blue-600" />
-          Sign in
-        </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
-          Login and start shortening your URLs
-        </p>
-      </div>
+    <div className="flex min-h-screen items-center justify-center bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.12),transparent_32%),linear-gradient(135deg,#f8fffb_0%,#f5f7fb_100%)] px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-center gap-8 lg:flex-row">
+        <div className="max-w-md text-center lg:text-left">
+          <p className="mb-3 inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-sm font-medium text-emerald-700">Welcome back</p>
+          <h2 className="text-4xl font-semibold tracking-tight text-slate-900">Sign in to manage your links</h2>
+          <p className="mt-4 text-lg text-slate-600">Shorten, organize, and track your URLs from one polished workspace.</p>
+        </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="w-full max-w-md rounded-[28px] border border-slate-200 bg-white p-8 shadow-[0_20px_60px_rgba(15,23,42,0.08)]">
           {isError && (
-            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-6">
+            <div className="mb-6 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-600">
               {message}
             </div>
           )}
 
-          <form className="space-y-6" onSubmit={onSubmit}>
+          <form className="space-y-5" onSubmit={onSubmit}>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-700">
                 Email address
               </label>
-              <div className="mt-1">
+              <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+                <FiMail className="h-4 w-4 text-slate-500" />
                 <input
                   id="email"
                   name="email"
@@ -105,16 +102,18 @@ function Login() {
                   required
                   value={email}
                   onChange={onChange}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400"
+                  placeholder="you@example.com"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="password" className="mb-2 block text-sm font-medium text-slate-700">
                 Password
               </label>
-              <div className="mt-1">
+              <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+                <FiLock className="h-4 w-4 text-slate-500" />
                 <input
                   id="password"
                   name="password"
@@ -122,42 +121,30 @@ function Login() {
                   required
                   value={password}
                   onChange={onChange}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400"
+                  placeholder="Enter your password"
                 />
               </div>
             </div>
 
-            <div>
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
-              >Sign in
-                {/* {loading ? 'Signing in...' : 'Sign in'} */}
-              </button>
-            </div>
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-70"
+            >
+              {isLoading ? 'Signing in...' : 'Sign in'}
+              <FiArrowRight className="h-4 w-4" />
+            </button>
           </form>
 
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">
-                  Don't have an account?
-                </span>
-              </div>
-            </div>
-
-            <div className="mt-6">
-              <Link
-                to="/register"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-blue-600 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-              >
-                Register now
-              </Link>
-            </div>
+          <div className="mt-6 border-t border-slate-200 pt-6 text-center">
+            <p className="text-sm text-slate-500">Don&apos;t have an account?</p>
+            <Link
+              to="/register"
+              className="mt-3 inline-flex items-center justify-center rounded-2xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-emerald-400 hover:text-emerald-700"
+            >
+              Create one now
+            </Link>
           </div>
         </div>
       </div>

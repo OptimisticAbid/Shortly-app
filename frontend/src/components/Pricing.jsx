@@ -1,93 +1,61 @@
 export default function Pricing() {
   return (
-    <section id="pricing" className="py-24 px-6 ">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <p className="text-blue-600 font-semibold text-sm mb-2">Pricing</p>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Choose the right plan for you
-          </h2>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            Choose an affordable plan that's packed with the best features for engaging your audience.
+    <section id="pricing" className="px-6 py-24 sm:px-8 lg:px-12">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-14 text-center">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-emerald-600">Pricing</p>
+          <h2 className="text-3xl font-semibold text-slate-900 sm:text-4xl">Simple plans for creators, founders, and teams</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-600">
+            Start free and scale as your reach grows with powerful link management built in.
           </p>
         </div>
 
-        {/* Pricing Cards */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          
-          {/* Basic Plan */}
-          <div className="card hover:shadow-xl transition-shadow">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Basic</h3>
-            <div className="mb-6">
-              <span className="text-4xl font-bold text-gray-900">$9</span>
-              <span className="text-gray-600 ml-2">/month</span>
+        <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
+          <div className="rounded-[28px] border border-slate-200 bg-white p-8 shadow-sm">
+            <h3 className="text-xl font-semibold text-slate-900">Starter</h3>
+            <div className="mt-6 flex items-end gap-2">
+              <span className="text-4xl font-semibold text-slate-900">$9</span>
+              <span className="pb-1 text-slate-500">/month</span>
             </div>
-            <p className="text-gray-600 mb-6">
-              The perfect plan if you're just getting started.
-            </p>
-            <FeatureList items={[
-              "25 short links",
-              "Basic analytics",
-              "Up to 10,000 clicks/month",
-              "Email support",
-            ]} />
-            <button className="btn-secondary w-full mt-8">
+            <p className="mt-4 text-sm leading-6 text-slate-600">Perfect for personal projects and everyday sharing.</p>
+            <FeatureList items={['25 short links', 'Basic click analytics', 'Email support']} />
+            <button className="mt-8 w-full rounded-2xl border border-slate-300 px-4 py-3 font-semibold text-slate-700 transition hover:border-emerald-400 hover:text-emerald-700">
               Get started
             </button>
           </div>
 
-          {/* Professional Plan */}
-          <div className="bg-card border-4 border-blue-600 hover:shadow-xl transition-shadow bg-card">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">Professional</h3>
-              <span className="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Popular</span>
+          <div className="rounded-[28px] border border-emerald-500 bg-slate-900 p-8 text-white shadow-[0_20px_60px_rgba(15,23,42,0.2)]">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xl font-semibold">Pro</h3>
+              <span className="rounded-full bg-emerald-400 px-3 py-1 text-xs font-semibold text-slate-900">Popular</span>
             </div>
-            <div className="mb-6">
-              <span className="text-4xl font-bold text-gray-900">$29</span>
-              <span className="text-gray-600 ml-2">/month</span>
+            <div className="mt-6 flex items-end gap-2">
+              <span className="text-4xl font-semibold">$29</span>
+              <span className="pb-1 text-slate-300">/month</span>
             </div>
-            <p className="text-gray-600 mb-6">
-              For growing businesses and professional teams.
-            </p>
-            <FeatureList items={[
-              "Unlimited short links",
-              "Advanced analytics",
-              "Unlimited clicks/month",
-              "Priority support",
-              "Custom domains",
-              "Team collaboration",
-            ]} />
-            <button className="btn-primary w-full mt-8">
-              Get started
+            <p className="mt-4 text-sm leading-6 text-slate-300">For growing brands that need deeper visibility and more control.</p>
+            <FeatureList items={['Unlimited short links', 'Advanced analytics', 'Priority support', 'Custom link workflows']} className="text-slate-200" />
+            <button className="mt-8 w-full rounded-2xl bg-emerald-400 px-4 py-3 font-semibold text-slate-900 transition hover:bg-emerald-300">
+              Choose Pro
             </button>
           </div>
-
         </div>
       </div>
     </section>
-  );
+  )
 }
 
-function FeatureList({ items }) {
+function FeatureList({ items, className = 'text-slate-700' }) {
   return (
-    <ul className="space-y-3">
-      {items.map((item, i) => (
-        <li key={i} className="flex items-start gap-3 text-gray-700">
-          <svg
-            className="w-5 h-5 text-blue-600 shrink-0 mt-0.5"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fillRule="evenodd"
-              d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
-              clipRule="evenodd"
-            />
+    <ul className="mt-6 space-y-3">
+      {items.map((item, index) => (
+        <li key={index} className={`flex items-start gap-3 text-sm ${className}`}>
+          <svg className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clipRule="evenodd" />
           </svg>
           <span>{item}</span>
         </li>
       ))}
     </ul>
-  );
+  )
 }

@@ -2,12 +2,14 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { FaBars, FaTimes, FaLink } from 'react-icons/fa'
 import logo from '../assets/logo.svg'
+import { useSelector } from 'react-redux'
 
 function Header({ user, onLogout }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const navigate = useNavigate()
 
+  // const {user} = useSelector(state => state.auth)
   // Smooth shadow on scroll
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10)
@@ -61,7 +63,8 @@ function Header({ user, onLogout }) {
             )
           })}
 
-          {user ? (
+          {user ? 
+          (
             <button
               onClick={handleLogout}
               className="ml-4 bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition transform hover:scale-[1.03]"

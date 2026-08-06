@@ -1,39 +1,35 @@
-import React from 'react'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
-import HeroCard from '../components/HeroCard'
+import FeatureShowcase from '../components/FeatureShowcase'
 import Pricing from '../components/Pricing'
 import Footer from '../components/Footer'
-import Header from '../components/Header'
-// import FeatureFloating from '../components/FeatureFloating'
-
 
 const LandingPage = () => {
+  const { user, success } = useSelector((state) => state.auth)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user')
+
+    if (success || storedUser) {
+      navigate('/dashboard')
+    }
+  }, [success, navigate, user])
+
   return (
-    <> 
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.12),_transparent_35%),linear-gradient(135deg,_#f8fffb_0%,_#f5f7fb_100%)] text-slate-900">
       <Navbar />
-      <div className='pt-24'>
-        
+      <main className="pt-24">
         <Hero />
-
-        {/* <div className='flex justify-center'>
-          <HeroCard title="Analytics that matters" description="Track clicks, views, and conversions with real-time data." />
-          <HeroCard title="Customizable links" description="Create branded short links that reflect your identity." />
-          <HeroCard title="Seamless integration" description="Easily integrate with popular platforms and tools." />
-        </div> */}
-
-        <Pricing/>
-        {/* <div>
-          <h2 className="text-center text-2xl font-bold mb-4">Pricing</h2>  
-          <PricingCard/>
-        </div> */}
+        <FeatureShowcase />
+        <Pricing />
+      </main>
+      <Footer />
     </div>
-    <Footer/>
-
-    </>
   )
-    
-    
 }
 
 export default LandingPage

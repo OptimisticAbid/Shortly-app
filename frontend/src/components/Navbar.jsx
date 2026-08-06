@@ -1,78 +1,53 @@
-import React from "react";
 import logo from '../assets/logo.svg'
-import { HashLink } from "react-router-hash-link";
-import { Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { logout, reset } from "../features/auth/authSlice";
+import { HashLink } from 'react-router-hash-link'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout, reset } from '../features/auth/authSlice'
 
 const Navbar = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
-  const {user} = useSelector((state) => state.auth)
+  const { user } = useSelector((state) => state.auth)
 
   const onLogout = () => {
     dispatch(logout())
     dispatch(reset())
-    
     navigate('/')
   }
 
   return (
-    // <nav className="flex w-full fixed top-0 mb-1 items-center justify-between z-50 px-5 py-5 h-16 bg-slate-50 backdrop-blur-md ">
-    <nav className="nav-container  ">
+    <nav className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 sm:px-8 lg:px-12">
+        <Link to="/" className="flex items-center gap-3">
+          <img src={logo} alt="Shortly logo" className="h-9 w-9" />
+          <span className="text-lg font-semibold tracking-tight text-slate-900">Shortly</span>
+        </Link>
 
-      <div className="nav-inner max-w-7xl">
-        
-        <div className="nav-logo-container ">
-          <span className="nav-logo text-primary-dark font-semibold text-3xl">
-            <img src={logo} alt="#"
-            className="w-full h-full scale-250" />
-          </span>
+        <div className="hidden items-center gap-6 md:flex">
+          <HashLink smooth to="/#features" className="text-sm font-medium text-slate-600 transition hover:text-slate-900">Features</HashLink>
+          <HashLink smooth to="/#pricing" className="text-sm font-medium text-slate-600 transition hover:text-slate-900">Pricing</HashLink>
+          <HashLink smooth to="/#contact" className="text-sm font-medium text-slate-600 transition hover:text-slate-900">Contact</HashLink>
         </div>
 
-        <div className="nav-menu ">
-
-          <ul className="nav-items items-center hidden md:flex gap-4 justify-center ">
-            <li>
-              <HashLink smooth to="/#features">Features</HashLink>
-            </li>
-            <li>
-              <HashLink smooth to="/#pricing">Pricing</HashLink>
-            </li>
-            <li>
-             <HashLink smooth to="/#contact">Contact</HashLink>
-            </li>
-          </ul>
-        </div> 
-
-        <div className="nav-right-section">
-          {user ? ( 
-            <button className="btn-primary md:bg-white md:text-muted-foreground md:border md:border-(--color-primary) md:hover:bg-(--color-primary) md:hover:text-white " onClick={onLogout}> log Out</button> 
+        <div className="flex items-center gap-3">
+          {user ? (
+            <button onClick={onLogout} className="rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-emerald-400 hover:text-emerald-700">
+              Log out
+            </button>
           ) : (
             <>
-              <Link to="/register">
-            <button className="btn-primary md:bg-white md:text-muted-foreground md:border md:border-(--color-primary) md:hover:bg-(--color-primary) md:hover:text-white"> Sign In</button> 
-         </Link> 
-          <Link to="/register">
-            <button className="hidden md:block btn-primary md:btn-secondary!"> Get Started →</button>
-          </Link>
+              <Link to="/login" className="rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-emerald-400 hover:text-emerald-700">
+                Sign in
+              </Link>
+              <Link to="/register" className="rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-700">
+                Get started
+              </Link>
             </>
           )}
-         
-        {/* data-text px-6 py-3 hover:bg-slate-50 hover:text-primary transition-all duration-700 ease-in-out  border-2 border-brand-gray-300 rounded-2xl */}
         </div>
-        {/* <div className="flex gap-4">
-          <button className="bg-primary data-text px-6 py-3 hover:bg-slate-50 hover:text-primary transition-all duration-700 ease-in-out  border-2 border-brand-gray-300 rounded-2xl">Sign In</button> */}
-
-          {/* <button className="bg-slate-50 border  hover:text-primary duration-700 border-brand-gray-300 px-6 py-3 rounded-2xl">
-            Login
-          </button> */}
-        {/* </div> */}
-      
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

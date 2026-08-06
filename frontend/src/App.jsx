@@ -4,18 +4,19 @@ import Header from './components/Header'
 import Dashboard from './pages/dashboard/Dashboard.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register'
-import { isAuthenticated } from './services/AuthService'
+
 import LandingPage from './pages/LandingPage'
 import Navbar from './components/Navbar'
 import Pricing from './pages/Pricing'
 import {ToastContainer} from 'react-toastify'
 import 'react-toastify/ReactToastify.css'
+import ProtectedRoutes from './components/ProtectedRoutes.jsx'
 
 
-const PrivateRoute = ({ children }) => {
-  const authenticated = isAuthenticated()
-  return authenticated ? children : <Navigate to="/login" />
-}
+// const PrivateRoute = ({ children }) => {
+//   const authenticated = isAuthenticated()
+//   return authenticated ? children : <Navigate to="/login" />
+// }
 
 const App = () => {
   return (
@@ -25,7 +26,12 @@ const App = () => {
         
         <Routes>
           <Route path='/' element= { <LandingPage />   } />
-          <Route path='/dashboard' element= { <Dashboard />   } />
+          <Route path='/dashboard'
+           element= {
+           <ProtectedRoutes>
+            <Dashboard />
+           </ProtectedRoutes>   
+          } />
           <Route path='/register' element= { <Register />   } />
           <Route path='/login' element= { <Login />   } />
       </Routes>

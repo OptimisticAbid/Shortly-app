@@ -1,81 +1,34 @@
-import React from 'react'
-
 const Footer = () => {
   return (
-    <footer  id='contact' className='bg-gray-900 text-gray-300'>
-      <div className='max-w-6xl mx-auto px-6 py-20'>
-        <div className='grid grid-cols-1 md:grid-cols-5 gap-8 mb-12'>
-          
-          {/* Brand */}
-          <div>
-            <h3 className='text-white font-bold text-xl mb-4'>Shortly</h3>
-            <p className='text-gray-400 text-sm'>
-              Short links. Deep insights. Track, share, and analyze your links.
+    <footer id="contact" className="bg-slate-950 px-6 py-16 text-slate-300 sm:px-8 lg:px-12">
+      <div className="mx-auto max-w-7xl">
+        <div className="flex flex-col gap-10 rounded-[28px] border border-slate-800 bg-slate-900/70 p-8 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-400">Shortly</p>
+            <h3 className="mt-3 text-2xl font-semibold text-white">Start building trust with every shared link.</h3>
+            <p className="mt-3 text-sm leading-7 text-slate-400">
+              Create polished links, track engagement, and keep your shared content effortless for your audience.
             </p>
           </div>
 
-          {/* Product */}
-          <div>
-            <h4 className='text-white font-semibold mb-4'>Product</h4>
-            <ul className='space-y-2 text-sm'>
-              <li><a href='#' className='hover:text-white transition'>Features</a></li>
-              <li><a href='#' className='hover:text-white transition'>Pricing</a></li>
-              <li><a href='#' className='hover:text-white transition'>Security</a></li>
-              <li><a href='#' className='hover:text-white transition'>Roadmap</a></li>
-            </ul>
-          </div>
-
-          {/* Resources */}
-          <div>
-            <h4 className='text-white font-semibold mb-4'>Resources</h4>
-            <ul className='space-y-2 text-sm'>
-              <li><a href='#' className='hover:text-white transition'>Documentation</a></li>
-              <li><a href='#' className='hover:text-white transition'>API</a></li>
-              <li><a href='#' className='hover:text-white transition'>Blog</a></li>
-              <li><a href='#' className='hover:text-white transition'>Support</a></li>
-            </ul>
-          </div>
-
-          {/* Company */}
-          <div>
-            <h4 className='text-white font-semibold mb-4'>Company</h4>
-            <ul className='space-y-2 text-sm'>
-              <li><a href='#' className='hover:text-white transition'>About</a></li>
-              <li><a href='#' className='hover:text-white transition'>Careers</a></li>
-              <li><a href='#' className='hover:text-white transition'>Contact</a></li>
-              <li><a href='#' className='hover:text-white transition'>Press</a></li>
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div>
-            <h4 className='text-white font-semibold mb-4'>Legal</h4>
-            <ul className='space-y-2 text-sm'>
-              <li><a href='#' className='hover:text-white transition'>Privacy</a></li>
-              <li><a href='#' className='hover:text-white transition'>Terms</a></li>
-              <li><a href='#' className='hover:text-white transition'>Cookie Policy</a></li>
-              <li><a href='#' className='hover:text-white transition'>License</a></li>
-            </ul>
+          <div className="flex flex-wrap gap-4 text-sm">
+            <a href="#features" className="rounded-full border border-slate-700 px-4 py-2 transition hover:border-emerald-400 hover:text-white">Features</a>
+            <a href="#pricing" className="rounded-full border border-slate-700 px-4 py-2 transition hover:border-emerald-400 hover:text-white">Pricing</a>
+            <a href="mailto:hello@shortly.app" className="rounded-full border border-slate-700 px-4 py-2 transition hover:border-emerald-400 hover:text-white">Contact</a>
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className='border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center'>
-          <p className='text-sm text-gray-400'>
-            © 2024 Shortly. All rights reserved.
-          </p>
-          <div className='flex gap-6 mt-6 md:mt-0'>
-            <a href='#' className='text-gray-400 hover:text-white transition'>Twitter</a>
-            <a href='#' className='text-gray-400 hover:text-white transition'>LinkedIn</a>
-            <a href='#' className='text-gray-400 hover:text-white transition'>GitHub</a>
+        <div className="mt-8 flex flex-col gap-3 border-t border-slate-800 pt-6 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+          <p>© 2026 Shortly. All rights reserved.</p>
+          <div className="flex gap-4">
+            <a href="#" className="transition hover:text-white">Twitter</a>
+            <a href="#" className="transition hover:text-white">LinkedIn</a>
+            <a href="#" className="transition hover:text-white">GitHub</a>
           </div>
         </div>
       </div>
     </footer>
   )
 }
-    
-
-
 
 export default Footer
