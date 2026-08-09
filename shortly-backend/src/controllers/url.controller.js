@@ -144,7 +144,8 @@ const redirectUrl = async (req, res) => {
             clickCount: updatedUrl?.clickCount ?? null,
         });
         const duration = performance.now() - start;
-        console.log(`Cache HIT processing time: ${duration.toFixed(2)} ms`);
+        res.setHeader("X-Redirect-Processing-Time", `${duration.toFixed(2)} ms`);
+
         return res.redirect(url.longUrl);
     }
 
@@ -182,7 +183,7 @@ const redirectUrl = async (req, res) => {
         clickCount: updatedUrl?.clickCount ?? null,
     });
     const duration = performance.now() - start;
-    console.log(`Cache MISS processing time: ${duration.toFixed(2)} ms`);
+    res.setHeader("X-Redirect-Processing-Time", `${duration.toFixed(2)} ms`);
     res.redirect(url.longUrl);
 };
 
