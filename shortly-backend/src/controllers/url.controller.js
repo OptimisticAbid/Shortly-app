@@ -119,6 +119,7 @@ const deleteUrl = asyncHandler(async(req,res) => {
 })
 
 const redirectUrl = async (req, res) => {
+    const start = performance.now();
     const { shortUrl } = req.params;
 
     const cachedUrl = await redis.get(`url:${shortUrl}`)
@@ -142,7 +143,8 @@ const redirectUrl = async (req, res) => {
             shortUrl,
             clickCount: updatedUrl?.clickCount ?? null,
         });
-
+        const duration = performance.now() - start;
+        console.log(`Cache HIT processing time: ${duration.toFixed(2)} ms`);
         return res.redirect(url.longUrl);
     }
 
@@ -179,7 +181,8 @@ const redirectUrl = async (req, res) => {
         shortUrl,
         clickCount: updatedUrl?.clickCount ?? null,
     });
-
+    const duration = performance.now() - start;
+    console.log(`Cache MISS processing time: ${duration.toFixed(2)} ms`);
     res.redirect(url.longUrl);
 };
 
