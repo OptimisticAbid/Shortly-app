@@ -12,13 +12,12 @@ const LandingPage = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
     const storedUser = localStorage.getItem('user')
 
-    if (success || storedUser || token) {
+    if (success || storedUser ) {
       navigate('/dashboard')
     }
-  }, [success, navigate, user, token])
+  }, [success, navigate, user])
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.12),_transparent_35%),linear-gradient(135deg,_#f8fffb_0%,_#f5f7fb_100%)] text-slate-900">
