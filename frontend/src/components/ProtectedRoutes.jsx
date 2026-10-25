@@ -11,10 +11,12 @@ const ProtectedRoutes = ({ children }) => {
   const isAuthenticated = Boolean(activeToken && authService.isTokenValid(activeToken))
 
   if (!isAuthenticated) {
+    console.log("Not authenticated — redirecting to login")
     return <Navigate to="/login" replace state={{ from: location }} />
   }
 
-  return children
+    console.log("Authenticated — rendering dashboard")
+    return children
 }
 
 export default ProtectedRoutes
