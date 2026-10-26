@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux'
 import { login, reset } from '../features/auth/authSlice'
+import authService from '../features/auth/authService'
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -17,21 +18,40 @@ function Login() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const {user, isError, isLoading, isSuccess, message} = useSelector((state) => state.auth)
+  const {
+    token,
+    isError,
+    isLoading,
+    isSuccess,
+    isAuthenticated,
+    message
+  } = useSelector((state) => state.auth)
 
   useEffect(() => {
-
-    if(isError) {
-      toast.error(message)
-        dispatch(reset())
-    }
-
-    if(isSuccess || user) {
-      navigate('/dashboard')
+    if (isError) {
+      toast.error(message || 'Login failed')
       dispatch(reset())
+      return
     }
 
-  }, [user,isError, isLoading, isSuccess,message])
+    if (
+      isSuccess &&
+      isAuthenticated &&
+      token &&
+      authService.isTokenValid(token)
+    ) {
+      dispatch(reset())
+      navigate('/dashboard', { replace: true })
+    }
+  }, [
+    isError,
+    isSuccess,
+    isAuthenticated,
+    token,
+    message,
+    navigate,
+    dispatch
+  ])
 
   const onChange = (e) => {
     setFormData((prevState) => ({

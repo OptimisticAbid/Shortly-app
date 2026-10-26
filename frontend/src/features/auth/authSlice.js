@@ -1,7 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import authService from './authService'
 
-const { user: persistedUser, token: persistedToken, isAuthenticated: persistedAuth } = authService.getStoredAuth()
+const { 
+  user: persistedUser,
+  token: persistedToken,
+  isAuthenticated: persistedAuth 
+} = authService.getStoredAuth()
 
 const initialState = {
   user: persistedUser || null,
